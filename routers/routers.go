@@ -7,14 +7,11 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/penggy/EasyGoLib/db"
-
+	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
-	"github.com/penggy/EasyGoLib/utils"
-	"github.com/penggy/cors"
-	"github.com/penggy/sessions"
+	"github.com/yexiaozhu05/EasyGoLib/utils"
 	validator "gopkg.in/go-playground/validator.v8"
 )
 
@@ -93,15 +90,15 @@ func Errors() gin.HandlerFunc {
 	}
 }
 
-func NeedLogin() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if sessions.Default(c).Get("uid") == nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, "Unauthorized")
-			return
-		}
-		c.Next()
-	}
-}
+//func NeedLogin() gin.HandlerFunc {
+//	return func(c *gin.Context) {
+//		if sessions.Default(c).Get("uid") == nil {
+//			c.AbortWithStatusJSON(http.StatusUnauthorized, "Unauthorized")
+//			return
+//		}
+//		c.Next()
+//	}
+//}
 
 func Init() (err error) {
 	Router = gin.New()
@@ -111,12 +108,12 @@ func Init() (err error) {
 	Router.Use(Errors())
 	Router.Use(cors.Default())
 
-	store := sessions.NewGormStoreWithOptions(db.SQLite, sessions.GormStoreOptions{
-		TableName: "t_sessions",
-	}, []byte("EasyDarwin@2018"))
-	tokenTimeout := utils.Conf().Section("http").Key("token_timeout").MustInt(7 * 86400)
-	store.Options(sessions.Options{HttpOnly: true, MaxAge: tokenTimeout, Path: "/"})
-	sessionHandle := sessions.Sessions("token", store)
+	//store := sessions.NewGormStoreWithOptions(db.SQLite, sessions.GormStoreOptions{
+	//	TableName: "t_sessions",
+	//}, []byte("EasyDarwin@2018"))
+	//tokenTimeout := utils.Conf().Section("http").Key("token_timeout").MustInt(7 * 86400)
+	//store.Options(sessions.Options{HttpOnly: true, MaxAge: tokenTimeout, Path: "/"})
+	//sessionHandle := sessions.Sessions("token", store)
 
 	{
 		wwwDir := filepath.Join(utils.DataDir(), "www")
@@ -124,12 +121,12 @@ func Init() (err error) {
 	}
 
 	{
-		api := Router.Group("/api/v1").Use(sessionHandle)
+		api := Router.Group("/api/v1").Use()
 		api.GET("/login", API.Login)
 		api.GET("/userinfo", API.UserInfo)
-		api.GET("/logout", API.Logout)
+		//api.GET("/logout", API.Logout)
 		api.GET("/defaultlogininfo", API.DefaultLoginInfo)
-		api.GET("/modifypassword", NeedLogin(), API.ModifyPassword)
+		//api.GET("/modifypassword", NeedLogin(), API.ModifyPassword)
 		api.GET("/serverinfo", API.GetServerInfo)
 		api.GET("/restart", API.Restart)
 

@@ -11,11 +11,10 @@ import (
 	"github.com/EasyDarwin/EasyDarwin/models"
 	"github.com/EasyDarwin/EasyDarwin/rtsp"
 	"github.com/gin-gonic/gin"
-	"github.com/penggy/EasyGoLib/db"
-	"github.com/penggy/EasyGoLib/utils"
-	"github.com/penggy/sessions"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
+	"github.com/yexiaozhu05/EasyGoLib/db"
+	"github.com/yexiaozhu05/EasyGoLib/utils"
 )
 
 /**
@@ -74,29 +73,29 @@ func init() {
 	}()
 }
 
-func (h *APIHandler) ModifyPassword(c *gin.Context) {
-	type Form struct {
-		OldPassword string `form:"oldpassword" binding:"required"`
-		NewPassword string `form:"newpassword" binding:"required"`
-	}
-	var form Form
-	if err := c.Bind(&form); err != nil {
-		return
-	}
-	sess := sessions.Default(c)
-	var user models.User
-	db.SQLite.First(&user, sess.Get("uid"))
-	if user.ID != "" && strings.EqualFold(form.OldPassword, user.Password) {
-		db.SQLite.Model(&user).Update("password", form.NewPassword)
-	} else {
-		c.AbortWithStatusJSON(http.StatusBadRequest, "原密码不正确")
-		return
-	}
-	token, _ := sess.RenewID()
-	c.IndentedJSON(http.StatusOK, gin.H{
-		"token": token,
-	})
-}
+//func (h *APIHandler) ModifyPassword(c *gin.Context) {
+//	type Form struct {
+//		OldPassword string `form:"oldpassword" binding:"required"`
+//		NewPassword string `form:"newpassword" binding:"required"`
+//	}
+//	var form Form
+//	if err := c.Bind(&form); err != nil {
+//		return
+//	}
+//	//sess := sessions.Default(c)
+//	var user models.User
+//	db.SQLite.First(&user, sess.Get("uid"))
+//	if user.ID != "" && strings.EqualFold(form.OldPassword, user.Password) {
+//		db.SQLite.Model(&user).Update("password", form.NewPassword)
+//	} else {
+//		c.AbortWithStatusJSON(http.StatusBadRequest, "原密码不正确")
+//		return
+//	}
+//	token, _ := sess.RenewID()
+//	c.IndentedJSON(http.StatusOK, gin.H{
+//		"token": token,
+//	})
+//}
 
 /**
  * @api {get} /api/v1/getserverinfo 获取平台运行信息
@@ -174,12 +173,12 @@ func (h *APIHandler) Login(c *gin.Context) {
 		c.AbortWithStatusJSON(401, "用户名或密码错误")
 		return
 	}
-	sess := sessions.Default(c)
-	sess.Set("uid", user.ID)
-	sess.Set("uname", user.Username)
-	c.IndentedJSON(200, gin.H{
-		"token": sessions.Default(c).ID(),
-	})
+	//sess := sessions.Default(c)
+	//sess.Set("uid", user.ID)
+	//sess.Set("uname", user.Username)
+	//c.IndentedJSON(200, gin.H{
+	//	"token": sessions.Default(c).ID(),
+	//})
 }
 
 /**
@@ -189,16 +188,17 @@ func (h *APIHandler) Login(c *gin.Context) {
  * @apiUse userInfo
  */
 func (h *APIHandler) UserInfo(c *gin.Context) {
-	sess := sessions.Default(c)
-	uid := sess.Get("uid")
-	if uid != nil {
-		c.IndentedJSON(200, gin.H{
-			"id":   uid,
-			"name": sess.Get("uname"),
-		})
-	} else {
-		c.IndentedJSON(200, nil)
-	}
+	//sess := sessions.Default(c)
+	uid := "uid"
+	c.IndentedJSON(200, gin.H{
+		"id":   uid,
+		"name": "name",
+	})
+	//if uid != nil {
+	//
+	//} else {
+	//	c.IndentedJSON(200, nil)
+	//}
 }
 
 /**
@@ -207,11 +207,11 @@ func (h *APIHandler) UserInfo(c *gin.Context) {
  * @apiName Logout
  * @apiUse simpleSuccess
  */
-func (h *APIHandler) Logout(c *gin.Context) {
-	sess := sessions.Default(c)
-	sess.Destroy()
-	c.IndentedJSON(200, "OK")
-}
+//func (h *APIHandler) Logout(c *gin.Context) {
+//	sess := sessions.Default(c)
+//	sess.Destroy()
+//	c.IndentedJSON(200, "OK")
+//}
 
 func (h *APIHandler) DefaultLoginInfo(c *gin.Context) {
 	var user models.User

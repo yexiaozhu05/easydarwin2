@@ -18,8 +18,8 @@ import (
 	"time"
 
 	"github.com/EasyDarwin/EasyDarwin/models"
-	"github.com/penggy/EasyGoLib/db"
-	"github.com/penggy/EasyGoLib/utils"
+	"github.com/yexiaozhu05/EasyGoLib/db"
+	"github.com/yexiaozhu05/EasyGoLib/utils"
 
 	"github.com/teris-io/shortid"
 )

@@ -60,6 +60,9 @@
                                 <a role="button" class="btn btn-xs btn-danger" @click.prevent="stop(scope.row)">
                                   <i class="fa fa-stop"></i> 停止
                                 </a>
+                                <a role="button" class="btn btn-xs btn-primary" @click.prevent="play(scope.row)">
+                                                                  <i class="fa fa-play"></i> 播放
+                                </a>
                             </div>
                         </template>
                     </el-table-column>
@@ -156,6 +159,11 @@ export default {
           this.getPushers();
         })
       }).catch(() => {});
+    },
+    play(row) {
+      import router from "../router";
+
+
     }
   },
   beforeRouteEnter(to, from, next) {
