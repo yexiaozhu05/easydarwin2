@@ -1,6 +1,6 @@
 {
   "name": "easydarwin",
-  "version": "8.1.0",
+  "version": "8.2.0",
   "description": "EasyDarwin Open Source Media Server",
   "main": "index.js",
   "scripts": {
@@ -22,15 +22,12 @@
       "stats",
       "Pushers",
       "Players",
-
       "stream",
       "StreamStart",
       "StreamStop",
-
       "record",
       "RecordFolders",
       "RecordFiles",
-
       "sys",
       "Login",
       "Logout",
@@ -65,5 +62,8 @@
         ]
       }
     }
-  ]
+  ],
+  "dependencies": {
+    "copyfiles": "^2.4.1"
+  }
 }

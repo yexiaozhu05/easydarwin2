@@ -92,7 +92,7 @@ module.exports = {
                 outputPath: "images/",
                 limit: 10000,
                 name: "[name].[hash:8].[ext]"
-            }              
+            }
         }, {
             test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
             loader: 'url-loader',
@@ -158,7 +158,7 @@ if (process.env.NODE_ENV == "production") {
             cssProcessor: require('cssnano'),
             cssProcessorOptions: { discardComments: { removeAll: true } },
             canPrint: true
-        }),         
+        }),
         new webpack.optimize.UglifyJsPlugin({
             comments: false,
             compress: {

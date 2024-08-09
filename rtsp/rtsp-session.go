@@ -17,7 +17,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/EasyDarwin/EasyDarwin/models"
+	"github.com/yexiaozhu05/easydarwin2/models"
 	"github.com/yexiaozhu05/EasyGoLib/db"
 	"github.com/yexiaozhu05/EasyGoLib/utils"
 

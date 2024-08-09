@@ -11,9 +11,9 @@ import (
 
 	"github.com/yexiaozhu05/EasyGoLib/db"
 
-	"github.com/EasyDarwin/EasyDarwin/models"
-	"github.com/EasyDarwin/EasyDarwin/routers"
-	"github.com/EasyDarwin/EasyDarwin/rtsp"
+	"github.com/yexiaozhu05/esaydarwin2/models"
+	"github.com/yexiaozhu05/esaydarwin2/routers"
+	"github.com/yexiaozhu05/esaydarwin2/rtsp"
 	figure "github.com/common-nighthawk/go-figure"
 	"github.com/yexiaozhu05/EasyGoLib/utils"
 	"github.com/yexiaozhu05/service"

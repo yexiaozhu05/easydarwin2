@@ -161,9 +161,8 @@ export default {
       }).catch(() => {});
     },
     play(row) {
-      import router from "../router";
-
-
+      window['row'] = row
+      window.open('../play.html')
     }
   },
   beforeRouteEnter(to, from, next) {
